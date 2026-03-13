@@ -132,4 +132,4 @@ Murtcan
 GitHub: https://github.com/murtcann
 ## Demo
 
-![System Monitor Demo](demoo.mp4)
+![System Monitor Demo](demo.gif)
