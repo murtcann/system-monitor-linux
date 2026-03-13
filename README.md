@@ -130,6 +130,3 @@ This project is a practical exercise for learning how Linux system resources can
 Murtcan
 
 GitHub: https://github.com/murtcann
-## Demo
-
-![System Monitor Demo](demo.gif)
