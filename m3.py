@@ -92,7 +92,7 @@ def collect_system_stats() -> dict:
         except OSError:
             continue
 
-    disks.sort(key=lambda d: d["percent"], reverse=True)
+    disks.sort(key = lambda d: d["percent"], reverse=True)
 
     return {
         "cpu_percent": cpu_percent,
@@ -147,7 +147,7 @@ def collect_process_stats(top_n: int, sample_interval: float = 0.5) -> tuple[lis
 
     by_mem = sorted(
         processes,
-        key=lambda p: (p["mem_rss_gb"], p["cpu_percent"]),
+        key = lambda p: (p["mem_rss_gb"], p["cpu_percent"]),
         reverse=True,
     )[:top_n]
 
@@ -336,36 +336,50 @@ def run_live(top_n: int, sample_interval: float, refresh_every: float) -> None:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Advanced colorful Linux system monitor"
+        prog="monitor.py",
+        description="Linux System Monitor - Terminal-based system monitoring tool.",
+        epilog="Example: python3 monitor.py --live --top 10",
     )
-    parser.add_argument("--top", type=int, default=5, help="Top N processes to show")
+
+    parser.add_argument(
+        "--top",
+        type=int,
+        default=5,
+        help="Number of top processes to display (default: 5)"
+    )
+
     parser.add_argument(
         "--sample-interval",
         type=float,
         default=0.5,
-        help="CPU sample interval for per-process CPU measurement",
+        help="CPU sampling interval for per-process CPU measurement"
     )
+
     parser.add_argument(
         "--live",
         action="store_true",
-        help="Enable live refreshing terminal UI",
+        help="Enable live refreshing terminal dashboard"
     )
+
     parser.add_argument(
         "--refresh-every",
         type=float,
         default=2.0,
-        help="Refresh period in live mode (seconds)",
+        help="Refresh period in live mode in seconds"
     )
+
     parser.add_argument(
         "--json",
         action="store_true",
-        help="Output JSON instead of rich terminal UI",
+        help="Output system statistics in JSON format"
     )
+
     parser.add_argument(
         "--log",
         default="WARNING",
-        help="Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)",
+        help="Log level (DEBUG, INFO, WARNING, ERROR)"
     )
+
     return parser.parse_args()
 
 
