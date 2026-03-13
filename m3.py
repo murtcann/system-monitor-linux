@@ -312,8 +312,13 @@ def run_once(top_n: int, sample_interval: float, as_json: bool) -> None:
 
 
 def run_live(top_n: int, sample_interval: float, refresh_every: float) -> None:
-    with Live(console=console, screen=True, refresh_per_second=max(1, int(1 / refresh_every))):
-        try:
+    try:
+        with Live(
+            Text("Loading system monitor...", style="bold cyan"),
+            console=console,
+            screen=True,
+            refresh_per_second=4,
+        ) as live:
             while True:
                 data = collect_stats(top_n=top_n, sample_interval=sample_interval)
                 content = Group(
@@ -324,12 +329,10 @@ def run_live(top_n: int, sample_interval: float, refresh_every: float) -> None:
                     build_process_table(data["top_processes_by_mem"], "Top Processes by Memory"),
                     Align.center(Text("Press Ctrl+C to quit", style="dim")),
                 )
-                console.clear()
-                console.print(content)
+                live.update(content)
                 time.sleep(refresh_every)
-        except KeyboardInterrupt:
-            console.print("\n[bold yellow]Stopped.[/bold yellow]")
-
+    except KeyboardInterrupt:
+        console.print("\n[bold yellow]Stopped.[/bold yellow]")
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
