@@ -114,6 +114,12 @@ I built this project to improve my Python skills in:
 This project is a practical exercise for learning how Linux system resources can be analyzed programmatically.
 
 ---
+## Help
+
+Display command-line options:
+
+python3 monitor.py --help
+---
 
 ## Future Improvements
 
